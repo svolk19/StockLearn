@@ -6,8 +6,8 @@ from sklearn.cross_validation import train_test_split
 import time
 
 
-def stock_data(NN):
-    labels, data = cr.csv_reader("C:/Users/sam/Desktop/HistoricalQuotes.csv")
+def stock_data(NN, filepath):
+    labels, data = cr.csv_reader(filepath)
     X_train, X_test, y_train, y_test = train_test_split(data, labels, train_size=0.8, test_size=0.2)
 
     X_train = np.array(X_train).reshape((53, 3))
@@ -21,7 +21,7 @@ def stock_data(NN):
     y_test = preprocessing.normalize(y_test)
 
     start_time = time.time()
-    NN.train(X_train, y_train, iterations=100, learning_rate=0.01, regularize=False, display=True)
+    NN.train(X_train, y_train, iterations=1000, learning_rate=0.01, regularize=False, display=True)
     end_time = time.time()
 
     total_time = end_time - start_time
@@ -29,4 +29,4 @@ def stock_data(NN):
 
 if __name__ == '__main__':
     NN = neural_net.NeuralNetwork(3, 1, 10, 10)
-    stock_data(NN)
+    stock_data(NN, "C:/Users/sam/Desktop/HistoricalQuotes.csv")
